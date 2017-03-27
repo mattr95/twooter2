@@ -1,0 +1,8 @@
+Phase 1: Preparing data files
+terms.txt: Fady
+dates.txt: Matt
+tweets.txt: Alex
+
+Phase 2: Building indices
+
+Phase 3: Data retrieval
