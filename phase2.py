@@ -3,6 +3,7 @@ import sys
 import re 
 
 
+#Doesn't ignore /
 def main():
 	os.system("clear")
 	sortFiles()
@@ -37,6 +38,7 @@ def sortFiles():
 	dateData = re.findall("(?<=:)[0-9]+", dates)
 	sortedFile3 = open("sortedDates.txt", "w")
 	for i in range(len(dateKeys)):
+		print(i)
 		sortedFile3.write(dateKeys[i] + "\n")
 		sortedFile3.write(dateData[i] + "\n")
 	sortedFile3.close()
