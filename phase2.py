@@ -8,8 +8,6 @@ def main():
 	sortFiles()
 	createIndex()
 
-
-
 def sortFiles():
 	os.system("sort -u -o tweets.txt tweets.txt")
 	tweets = open("tweets.txt", "r").read()
