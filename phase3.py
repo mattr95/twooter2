@@ -30,15 +30,14 @@ def parseDate(date):
 	print("Parsing Date")
 	modifer = None
 	validDate = re.findall("[0-9]{4}/[0|1]{1}[0-9]{1}/[0-3]{1}[0-9]{1}", date)
-	print(validDate)
 	newDate = time.strptime(validDate[0], "%Y/%m/%d")
 	if(":" in date or "<" in date or ">" in date):
 		modiferList = re.findall("[<|>|:]", date)
 		modifer = modiferList[0]
-	database = db.DB()
-	database.open("da.idx")
-	cursor = database.cursor()
-	iterator = cursor.first()
+	dateDatabase = db.DB()
+	dateDatabase.open("da.idx")
+	dateCursor = dateDatabase.cursor()
+	iterator = dateCursor.first()
 	while iterator:
 		tweetDate = iterator[0]
 		tweetID = iterator[1]
@@ -54,9 +53,9 @@ def parseDate(date):
 			#This returns all dates smaller than the entered date
 			if(newDate > tempDate):
 				getTweet(tweetID.decode("utf-8"))
-		iterator = cursor.next()
-	cursor.close()
-	database.close()
+		iterator = dateCursor.next()
+	dateCursor.close()
+	dateDatabase.close()
 
 
 def parseTerm(term):
@@ -64,8 +63,30 @@ def parseTerm(term):
 
 
 def getTweet(tweetID):
-	#TODO - Need to get the tweets from the tweets index file using the tweetID passed in
-	print(tweetID)
+	tweetDatabase = db.DB()
+	tweetDatabase.open("tw.idx")
+	tweetCursor = tweetDatabase.cursor()
+	test = tweetID.encode("utf-8")
+	tempData = tweetDatabase.get(test).decode("utf-8")	
+	print(tempData)
+	# formatData(tempData)
+
+	tweetDatabase.close()
+	tweetCursor.close()
+
+# def formatData(data):
+# 	print("ID:" + recordID)
+# 	print("Date:" + recordDate)
+# 	print("Text:" + recordText)
+# 	print("Retweet Count:" count)
+# 	print("Name:" + name)
+# 	print("Location:" + location)
+# 	print("Description:" + desc)
+# 	print("URL:" + url)
 
 
+
+
+# getTweet("000000018")
 main()
+
