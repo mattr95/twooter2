@@ -12,9 +12,10 @@ def main():
 def sortFiles():
 	os.system("sort -u -o tweets.txt tweets.txt")
 	tweets = open("tweets.txt", "r").read()
-	tweetKeys = re.findall("[0-9]+(?=:<status>)", tweets)
+	tweetKeys = re.findall("\n[0-9]+(?=:)", tweets)
+	print(len(tweetKeys))
 	tweetData = re.findall("<status>.*</status>", tweets) 
-	sortedFile = open("sortedTweets.txt", "w")
+	sortedFile = open("sortedTweets.txt", "w")	
 	for i in range(len(tweetKeys)):
 		sortedFile.write(tweetKeys[i] + "\n")
 		sortedFile.write(tweetData[i] + "\n")
@@ -48,5 +49,5 @@ def createIndex():
 	os.system("db_load -f sortedTerms.txt -T -t btree te.idx")
 	os.system("db_load -f sortedDates.txt -T -t btree da.idx")
 
-if __name__ == '__main__':
-	main()
+
+main()
