@@ -136,4 +136,6 @@ def main():
 
         # ATTRIBUTES:
         # tid, date, text, retweets, name, location, description, url
-main()
+
+if __name__ == '__main__':
+    main()
