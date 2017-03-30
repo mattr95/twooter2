@@ -6,3 +6,6 @@ tweets.txt: Alex
 Phase 2: Building indices
 
 Phase 3: Data retrieval
+
+
+YAY! You fixed it!!!! Way to go!
