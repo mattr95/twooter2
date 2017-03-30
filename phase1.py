@@ -22,6 +22,7 @@ def extractTerms(instring):
     return terms
 
 def main():
+    os.system("rm -f sorted* *.idx dates.txt terms.txt tweets.txt")
     os.system('clear')####
     # take .xml file name as input
     argc = len(sys.argv)
@@ -39,7 +40,7 @@ def main():
     dates = open("dates.txt", "w")
     tweets = open("tweets.txt", "w")
     
-    xml = f.read()
+    xml = f.read().replace('\\', '')
 
     status_list = xml.split("<status>")
 

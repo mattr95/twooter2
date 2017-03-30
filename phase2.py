@@ -12,7 +12,7 @@ def main():
 def sortFiles():
 	os.system("sort -u -o tweets.txt tweets.txt")
 	tweets = open("tweets.txt", "r").read()
-	tweetKeys = re.findall("\n[0-9]+(?=:)", tweets)
+	tweetKeys = re.findall("[0-9]+(?=:<status>)", tweets)
 	print(len(tweetKeys))
 	tweetData = re.findall("<status>.*</status>", tweets) 
 	sortedFile = open("sortedTweets.txt", "w")	
@@ -39,15 +39,17 @@ def sortFiles():
 	dateData = re.findall("(?<=:)[0-9]+", dates)
 	sortedFile3 = open("sortedDates.txt", "w")
 	for i in range(len(dateKeys)):
-		print(i)
+		#print(i)
 		sortedFile3.write(dateKeys[i] + "\n")
 		sortedFile3.write(dateData[i] + "\n")
 	sortedFile3.close()
 
 def createIndex():
 	os.system("db_load -f sortedTweets.txt -T -t hash tw.idx")
+	print("1st idx done")
 	os.system("db_load -f sortedTerms.txt -T -t btree te.idx")
+	print("2nd idx done")	
 	os.system("db_load -f sortedDates.txt -T -t btree da.idx")
-
+	print("3rd idx done")
 
 main()
