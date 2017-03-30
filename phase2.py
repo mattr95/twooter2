@@ -45,11 +45,11 @@ def sortFiles():
 	sortedFile3.close()
 
 def createIndex():
-	os.system("db_load -f sortedTweets.txt -T -t hash tw.idx")
+	os.system("db_load -f sortedTweets.txt -c duplicates=1 -T -t hash tw.idx")
 	print("1st idx done")
-	os.system("db_load -f sortedTerms.txt -T -t btree te.idx")
+	os.system("db_load -f sortedTerms.txt -c duplicates=1 -T -t btree te.idx")
 	print("2nd idx done")	
-	os.system("db_load -f sortedDates.txt -T -t btree da.idx")
+	os.system("db_load -f sortedDates.txt -c duplicates=1 -T -t btree da.idx")
 	print("3rd idx done")
 
 main()
