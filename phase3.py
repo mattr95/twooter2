@@ -133,16 +133,18 @@ def parseTerm(term):
 		textQuery = "t-" + term
 		locationQuery = "l-" + term
 
+	tweetList = []
 	if(nameQuery != None):
-		return runQuery(nameQuery, partial)
+		tweetList += runQuery(nameQuery, partial)
 	if(textQuery != None):
-		return runQuery(textQuery, partial)
+		tweetList += runQuery(textQuery, partial)
 	if(locationQuery != None):
-		return runQuery(locationQuery, partial)
+		tweetList += runQuery(locationQuery, partial)
 	if(query != None):
-		return runQuery(query, partial)
-	
+		tweetList += runQuery(query, partial)
 
+	return tweetList
+	
 
 def runQuery(query, partial):
 	termDatabase = db.DB()
