@@ -2,25 +2,20 @@ from bsddb3 import db
 import re, sys, time, os
 
 def main():
-	#RUNNING = True
-		
 	while True:
 		choice = input("Enter query or exit: ").strip().lower()
 		if(choice == "exit"):
-			#RUNNING = False
 			break
 		else:
 			tweetSets = getQueries(choice)
-			break
-			getQueries(choice)
-
-	# Take intersection of tweetSets
-	intersection = tweetSets[0]
-	for i in range(1, len(tweetSets)):
-		intersection = list(set(intersection) & set(tweetSets[i]))
-
-	# Print final list of tweets
-	formatData(intersection)
+			
+			# Take intersection of tweetSets
+			intersection = tweetSets[0]
+			for i in range(1, len(tweetSets)):
+				intersection = list(set(intersection) & set(tweetSets[i]))
+			
+			# Print final list of tweets
+			formatData(intersection)
 
 def getQueries(choice):
 	tweetSets = [] # list of lists to track query results
