@@ -5,15 +5,16 @@ import time
 import os
 
 def main():
-	#RUNNING = True
+	RUNNING = True
 		
-	while True:
+	while RUNNING:
 		choice = input("Enter query or exit: ").strip().lower()
-		if(choice == "exit"):
-			#RUNNING = False
+		if(choice.strip() == "exit"):
+			RUNNING = False
 			break
 		else:
 			getQueries(choice)
+			break
 
 def getQueries(choice):
 	queries = choice.split()
