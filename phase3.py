@@ -25,7 +25,7 @@ def getQueries(choice):
 		elif(re.match("[0-9]{4}/[0|1]{1}[0-9]{1}/[0-3]{1}[0-9]{1}", query) is not None):
 			parseDate(query)
 		else:
-			parseTerm(query)
+			parseTerm(query.strip())
 
 def parseDate(date):
 	#Iterates through the index file for the dates. If it finds
@@ -111,6 +111,10 @@ def parseTerm(term):
 	textQuery = None
 	locationQuery = None
 	query = None
+	partial = False
+	
+	if (term[-1] == '%'):
+		partial = True
 
 	if(":" in term):
 		text = term.split(":")
@@ -120,40 +124,47 @@ def parseTerm(term):
 			query = "t-" + text[1]
 		elif(text[0] == "location"):
 			query = "l-" + text[1]
-	elif("%" in term):
-		pass 
-		#TODO Need to do the partial search here
-		
 	else:
 		nameQuery = "n-" + term
 		textQuery = "t-" + term
 		locationQuery = "l-" + term
 
 	if(nameQuery != None):
-		runQuery(nameQuery)
+		runQuery(nameQuery, partial)
 	if(textQuery != None):
-		runQuery(textQuery)
+		runQuery(textQuery, partial)
 	if(locationQuery != None):
-		runQuery(locationQuery)
+		runQuery(locationQuery, partial)
 	if(query != None):
-		runQuery(query)
+		runQuery(query, partial)
 	
 
 
-def runQuery(query):
+def runQuery(query, partial):
 	termDatabase = db.DB()
 	termDatabase.open("te.idx")
 	termCursor = termDatabase.cursor()
 	iterator = termCursor.first()
+	
+	if partial:
+		query = query[:-1]
 
 	tweetList = []
 	while iterator:
-		if(iterator[0].decode("utf-8") == query):
-			tweetID = iterator[1].decode("utf-8")
-			tempTweet= getTweet(tweetID)
-			if(tempTweet not in tweetList):
-				tweetList.append(tempTweet)
-		iterator = termCursor.next()	
+		if partial:
+			if(re.fullmatch(query + ".*", iterator[0].decode("utf-8")) != None):
+				tweetID = iterator[1].decode("utf-8")
+				tempTweet= getTweet(tweetID)
+				if(tempTweet not in tweetList):
+					tweetList.append(tempTweet)
+		else:
+			if(iterator[0].decode("utf-8") == query):
+				tweetID = iterator[1].decode("utf-8")
+				tempTweet= getTweet(tweetID)
+				if(tempTweet not in tweetList):
+					tweetList.append(tempTweet)
+
+		iterator = termCursor.next()
 	formatData(tweetList)
 
 
