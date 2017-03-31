@@ -1,31 +1,40 @@
 from bsddb3 import db
-import re 
-import sys
-import time
-import os
+import re, sys, time, os
 
 def main():
-	RUNNING = True
+	#RUNNING = True
 		
-	while RUNNING:
+	while True:
 		choice = input("Enter query or exit: ").strip().lower()
-		if(choice.strip() == "exit"):
-			RUNNING = False
+		if(choice == "exit"):
+			#RUNNING = False
 			break
 		else:
-			getQueries(choice)
+			tweetSets = getQueries(choice)
 			break
+			getQueries(choice)
+
+	# Take intersection of tweetSets
+	intersection = tweetSets[0]
+	for i in range(1, len(tweetSets)):
+		intersection = list(set(intersection) & set(tweetSets[i]))
+
+	# Print final list of tweets
+	formatData(intersection)
 
 def getQueries(choice):
+	tweetSets = [] # list of lists to track query results
 	queries = choice.split()
 	for query in queries:
 		#Not full validation - a date of 2010/13/35 will just search the terms without warning
-		if(re.match("date[:|<|>][0-9]{4}/[0|1]{1}[0-9]{1}/[0-3]{1}[0-9]{1}", query) is not None):
-			parseDate(query)
-		elif(re.match("[0-9]{4}/[0|1]{1}[0-9]{1}/[0-3]{1}[0-9]{1}", query) is not None):
-			parseDate(query)
+		if(re.match("date[:|<|>][0-9]{4}/[0|1]{1}[0-9]{1}/[0-3]{1}[0-9]{1}", query) != None):
+			tweetSets.append(parseDate(query))
+		elif(re.match("[0-9]{4}/[0|1]{1}[0-9]{1}/[0-3]{1}[0-9]{1}", query) != None):
+			tweetsSets.append(parseDate(query))
 		else:
-			parseTerm(query.strip())
+			tweetSets.append(parseTerm(query.strip()))
+
+	return tweetSets
 
 def parseDate(date):
 	#Iterates through the index file for the dates. If it finds
@@ -59,7 +68,7 @@ def parseDate(date):
 		iterator = dateCursor.next()
 	dateCursor.close()
 	dateDatabase.close()
-	formatData(tweetList)
+	return tweetList
 
 #Retrieve the tweet with the matching ID
 def getTweet(tweetID):
@@ -130,13 +139,13 @@ def parseTerm(term):
 		locationQuery = "l-" + term
 
 	if(nameQuery != None):
-		runQuery(nameQuery, partial)
+		return runQuery(nameQuery, partial)
 	if(textQuery != None):
-		runQuery(textQuery, partial)
+		return runQuery(textQuery, partial)
 	if(locationQuery != None):
-		runQuery(locationQuery, partial)
+		return runQuery(locationQuery, partial)
 	if(query != None):
-		runQuery(query, partial)
+		return runQuery(query, partial)
 	
 
 
@@ -165,7 +174,7 @@ def runQuery(query, partial):
 					tweetList.append(tempTweet)
 
 		iterator = termCursor.next()
-	formatData(tweetList)
+	return tweetList
 
 
 #Prints the data in a human-readable format 
@@ -190,7 +199,5 @@ def dataPrinter(data):
 	print("\n")
 
 
-
-
-
-main()
+if __name__ == '__main__':
+	main()
