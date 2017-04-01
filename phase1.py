@@ -4,7 +4,7 @@ import os
 
 def extractTerms(instring):
     i = 0
-    terms = re.findall(r'[0-9a-zA-Z_]+|&#[0-9a-zA-Z_]+;', instring)
+    terms = re.findall(r'[0-9a-zA-Z_]+', instring)
     while i<len(terms):
         terms[i] = terms[i].lower()
         term = terms[i]
@@ -40,7 +40,9 @@ def main():
     dates = open("dates.txt", "w")
     tweets = open("tweets.txt", "w")
     
+    # remove all instances of \ and all special characters
     xml = f.read().replace('\\', '')
+    xml = re.sub(r'&#[0-9a-zA-Z_]+;', '', xml)
 
     status_list = xml.split("<status>")
 
