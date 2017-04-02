@@ -92,8 +92,9 @@ def formatData(tweetList):
 		# command = input("Enter \'n\' to see another result or \'q\' to enter a new query: ").strip().lower()
 		# if(command != "q"):
 		# 	FLAG = False
+		prompt = "Enter \'n\' to see another result or \'q\' to enter a new query: "
 		while (True):
-			command = input("Enter \'n\' to see another result or \'q\' to enter a new query: ").strip().lower()
+			command = input(prompt).strip().lower()
 			if(command == 'n'):
 				counter += 1
 				if(counter >= amount):
@@ -107,7 +108,10 @@ def formatData(tweetList):
 			elif(command == 'q'):
 				break
 			else:
-				command = input("Enter a Valid Option (n or q): ").strip().lower()
+				prompt = "Enter a Valid Option (n or q): "
+				continue
+				# command = input("Enter a Valid Option (n or q): ").strip().lower()
+			prompt = "Enter \'n\' to see another result or \'q\' to enter a new query: "
 				
 
 
