@@ -3,7 +3,7 @@ import re, sys, time, os
 
 def main():
 	while True:
-		choice = input("Enter query or \'exit\': ").strip().lower()
+		choice = input("Enter a query or \'exit\': ").strip().lower()
 		if(choice == "exit"):
 			break
 		else:
@@ -80,13 +80,13 @@ def getTweet(tweetID):
 def formatData(tweetList):
 	amount = len(tweetList)
 	counter = 0
-	os.system("clear")
+	# os.system("clear")
 	# if(amount == 0):
 	# 	FLAG = False
 	# else:
 	# 	FLAG = True
 	if (amount > 0):
-		dataPrinter(tweetList[counter])
+		dataPrinter(tweetList[counter], counter+1, amount)
 	print("\n %d Result(s)" %amount)
 	if(amount > 1):
 		# command = input("Enter \'n\' to see another result or \'q\' to enter a new query: ").strip().lower()
@@ -100,9 +100,9 @@ def formatData(tweetList):
 					print("No more to see")
 					break
 				else:
-					os.system("clear")
-					print("Result %d/%d" %(counter+1, amount))
-					dataPrinter(tweetList[counter])
+					# os.system("clear")
+					# print("Result %d/%d" %(counter+1, amount))
+					dataPrinter(tweetList[counter], counter+1, amount)
 					# command = input("Press n To See Another: ").strip().lower()
 			elif(command == 'q'):
 				break
@@ -176,7 +176,7 @@ def runQuery(query, partial):
 
 
 #Prints the data in a human-readable format 
-def dataPrinter(data):
+def dataPrinter(data, res_no, n_results):
 	recordID = re.findall("<id>(.*?)<\/id>", data)[0]
 	recordDate = re.findall("<created_at>(.*?)<\/created_at>", data)[0]
 	recordText = re.findall("<text>(.*?)<\/text>", data)[0]
@@ -185,7 +185,9 @@ def dataPrinter(data):
 	location = re.findall("<location>(.*?)<\/location>", data)[0]
 	desc = re.findall("<description>(.*?)<\/description>", data)[0]
 	url = re.findall("<url>(.*?)<\/url>", data)[0]
-	print("\n")
+
+	os.system("clear")
+	print("Result %d/%d\n" %(res_no, n_results))
 	print("ID: " + recordID)
 	print("Date: " + recordDate)
 	print("Text: " + recordText)
