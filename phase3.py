@@ -87,6 +87,8 @@ def formatData(tweetList):
 	# 	FLAG = True
 	if (amount > 0):
 		dataPrinter(tweetList[counter], counter+1, amount)
+	else:
+		os.system("clear")
 	print("\n %d Result(s)" %amount)
 	if(amount > 1):
 		# command = input("Enter \'n\' to see another result or \'q\' to enter a new query: ").strip().lower()
@@ -106,6 +108,7 @@ def formatData(tweetList):
 					dataPrinter(tweetList[counter], counter+1, amount)
 					# command = input("Press n To See Another: ").strip().lower()
 			elif(command == 'q'):
+				os.system("clear")
 				break
 			else:
 				prompt = "Enter a Valid Option (n or q): "
