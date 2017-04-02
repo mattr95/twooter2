@@ -80,20 +80,13 @@ def getTweet(tweetID):
 def formatData(tweetList):
 	amount = len(tweetList)
 	counter = 0
-	# os.system("clear")
-	# if(amount == 0):
-	# 	FLAG = False
-	# else:
-	# 	FLAG = True
+
 	if (amount > 0):
 		dataPrinter(tweetList[counter], counter+1, amount)
 	else:
 		os.system("clear")
 	print("\n %d Result(s)" %amount)
 	if(amount > 1):
-		# command = input("Enter \'n\' to see another result or \'q\' to enter a new query: ").strip().lower()
-		# if(command != "q"):
-		# 	FLAG = False
 		prompt = "Enter \'n\' to see another result or \'q\' to enter a new query: "
 		while (True):
 			command = input(prompt).strip().lower()
@@ -103,17 +96,13 @@ def formatData(tweetList):
 					print("No more to see")
 					break
 				else:
-					# os.system("clear")
-					# print("Result %d/%d" %(counter+1, amount))
 					dataPrinter(tweetList[counter], counter+1, amount)
-					# command = input("Press n To See Another: ").strip().lower()
 			elif(command == 'q'):
 				os.system("clear")
 				break
 			else:
 				prompt = "Enter a Valid Option (n or q): "
 				continue
-				# command = input("Enter a Valid Option (n or q): ").strip().lower()
 			prompt = "Enter \'n\' to see another result or \'q\' to enter a new query: "
 				
 
