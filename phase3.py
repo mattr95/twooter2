@@ -3,7 +3,7 @@ import re, sys, time, os
 
 def main():
 	while True:
-		choice = input("Enter query or exit: ").strip().lower()
+		choice = input("Enter query or \'exit\': ").strip().lower()
 		if(choice == "exit"):
 			break
 		else:
@@ -89,10 +89,11 @@ def formatData(tweetList):
 		dataPrinter(tweetList[counter])
 	print("\n %d Result(s)" %amount)
 	if(amount > 1):
-		command = input("\'n\' to see another result or \'q\' to enter a new query: ").strip().lower()
+		# command = input("Enter \'n\' to see another result or \'q\' to enter a new query: ").strip().lower()
 		# if(command != "q"):
 		# 	FLAG = False
 		while (True):
+			command = input("Enter \'n\' to see another result or \'q\' to enter a new query: ").strip().lower()
 			if(command == 'n'):
 				counter += 1
 				if(counter >= amount):
@@ -100,13 +101,13 @@ def formatData(tweetList):
 					break
 				else:
 					os.system("clear")
-					print("%d/%d" %(counter+1, amount))
+					print("Result %d/%d" %(counter+1, amount))
 					dataPrinter(tweetList[counter])
-					command = input("Press n To See Another: ").strip().lower()
+					# command = input("Press n To See Another: ").strip().lower()
 			elif(command == 'q'):
 				break
 			else:
-				command = input("Enter a Valid Option: ").strip().lower()
+				command = input("Enter a Valid Option (n or q): ").strip().lower()
 				
 
 
