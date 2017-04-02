@@ -81,17 +81,18 @@ def formatData(tweetList):
 	amount = len(tweetList)
 	counter = 0
 	os.system("clear")
-	if(amount == 0):
-		FLAG = False
-	else:
-		FLAG = True
+	# if(amount == 0):
+	# 	FLAG = False
+	# else:
+	# 	FLAG = True
+	if (amount > 0):
 		dataPrinter(tweetList[counter])
-	print("\n %d Option(s)" %amount)
+	print("\n %d Result(s)" %amount)
 	if(amount > 1):
-		command = input("n To see Another or exit: ").strip().lower()
-		if(command == "exit"):
-			FLAG = False
-		while (FLAG):
+		command = input("\'n\' to see another result or \'q\' to enter a new query: ").strip().lower()
+		# if(command != "q"):
+		# 	FLAG = False
+		while (True):
 			if(command == 'n'):
 				counter += 1
 				if(counter >= amount):
@@ -102,8 +103,7 @@ def formatData(tweetList):
 					print("%d/%d" %(counter+1, amount))
 					dataPrinter(tweetList[counter])
 					command = input("Press n To See Another: ").strip().lower()
-			elif(command == "exit"):
-				FLAG = False
+			elif(command == 'q'):
 				break
 			else:
 				command = input("Enter a Valid Option: ").strip().lower()
