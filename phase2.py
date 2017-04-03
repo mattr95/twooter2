@@ -13,7 +13,7 @@ def sortFiles():
 	os.system("sort -u -o tweets.txt tweets.txt")
 	tweets = open("tweets.txt", "r").read()
 	tweetKeys = re.findall("[0-9]+(?=:<status>)", tweets)
-	print(len(tweetKeys))
+	print(len(tweetKeys), "entries loaded.\n")
 	tweetData = re.findall("<status>.*</status>", tweets) 
 	sortedFile = open("sortedTweets.txt", "w")	
 	for i in range(len(tweetKeys)):

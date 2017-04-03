@@ -85,7 +85,7 @@ def formatData(tweetList):
 		dataPrinter(tweetList[counter], counter+1, amount)
 	else:
 		os.system("clear")
-	print("\n %d Result(s)" %amount)
+	print("\n%d Result(s)" %amount)
 	if(amount > 1):
 		prompt = "Enter \'n\' to see another result or \'q\' to enter a new query: "
 		while (True):
@@ -186,8 +186,10 @@ def dataPrinter(data, res_no, n_results):
 	print("Result %d/%d\n" %(res_no, n_results))
 	print("ID: " + recordID)
 	print("Date: " + recordDate)
+	print('-'*80)
 	print("Text: " + recordText)
 	print("Retweet Count: " + count)
+	print('-'*80)
 	print("Name: " + name)
 	print("Location: " + location)
 	print("Description: " + desc)
